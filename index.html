@@ -2,23 +2,18 @@
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
-    <title>백엔드 서버 연습</title>
-    <style>
-        h1 {
-            font-weight: 400;
-            font-size: 4rem;
-            color: red;
-        }
-        p {
-            font-weight: 300;
-            font-size: 3rm;
-            color: grey;
-        }
-    </style>
+    <title>로그인</title>
 </head>
 <body>
-    <h1>backend</h1>
-    <p>백엔드 1주차 수업입니다.</p>
-    <input type="text">
+    ID: <input type="text"><br>
+    PW: <input type="text"><br>
+    <input type="submit" value="로그인">
+    <input id="register" type="button" value="회원가입">
+
+    <script type="text/javascript">
+        document.getElementById("register").addEventListener('click', () => {
+            location.href = 'register'
+        })
+    </script>
 </body>
 </html>
