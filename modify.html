@@ -14,6 +14,7 @@
         학교: <input type="text" name="school" id="school"><br>
         <input id="complete" type="submit" value="수정하기">
     </form>
+    <input id="modifyPw" type="button" value="비번변경">
 </body>
 <script>
     fetch("modifyInfo")
@@ -29,5 +30,10 @@
     .catch((e) => {
         console.log(e);
     });
+    
+    document.getElementById("modifyPw").addEventListener('click', () => {
+            location.href = 'pwChange';
+    })
+    
 </script>
 </html>

@@ -9,7 +9,6 @@
     PW: <input id="pw" name="pw" type="text"><br>
     <input id="modify" type="button" value="로그인">    
     <input id="register" type="button" value="회원가입">
-    <input id="modifyPw" type="button" value="비번변경">
     <!-- <form action="signUp" type="GET">
         <input type="submit" value="가입">
     </form> -->
@@ -44,6 +43,9 @@
             .catch((e) => {
                 console.log(e);
             });
+        })
+        document.getElementById("modifyPw").addEventListener('click', () => {
+            location.href = 'pwChange';
         })
     </script>
 </body>

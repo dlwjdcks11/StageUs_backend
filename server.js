@@ -7,7 +7,9 @@ const pageMove = require('./router/pageMove');
 const info = require('./router/register');
 const login = require('./router/login');
 const moveToMain = require('./router/moveToMain');
+const moveToPwChange = require('./router/moveToPwChange');
 const modify = require('./router/modify');
+const modifyPw = require('./router/modifyPw');
 const https = require('https');
 const fs = require('fs');
 
@@ -50,6 +52,8 @@ app.use(session({
     resave: false
 }));
 
+app.use('/modifyPw', modifyPw);
+app.use('/pwChange', moveToPwChange);
 app.use('/modifyInfo', modify);
 app.use('/login', login);
 app.use('/info', info);
