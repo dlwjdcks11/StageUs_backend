@@ -5,6 +5,29 @@
     <title>정보수정</title>
 </head>
 <body>
-    
+    <form action="modifyInfo" accept-charset="utf-8" name="register_info" method="POST">
+        이름: <input type="text" name="name" id="name"><br>
+        이메일: <input type="text" name="email" id="email"><br>
+        전화번호: <input type="text" name="phone" id="phone"><br>
+        주소: <input type="text" name="address" id="address"><br>
+        학번: <input type="text" name="stuNum" id="stuNum"><br>
+        학교: <input type="text" name="school" id="school"><br>
+        <input id="complete" type="submit" value="수정하기">
+    </form>
 </body>
+<script>
+    fetch("modifyInfo")
+    .then((response) => response.json())
+    .then((result) => {
+        document.getElementById("name").value = result.name;
+        document.getElementById("email").value = result.email;
+        document.getElementById("phone").value = result.phone;
+        document.getElementById("address").value = result.address;
+        document.getElementById("stuNum").value = result.stuNum;
+        document.getElementById("school").value = result.school;
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+</script>
 </html>

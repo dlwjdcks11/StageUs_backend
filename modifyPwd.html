@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>비번수정</title>
+</head>
+<body>
+    <form action="modifyPw" accept-charset="utf-8" name="register_info" method="POST">
+        비밀번호: <input type="text" name="pw" id="pw"><br>
+        <input id="complete" type="submit" value="수정하기">
+    </form>
+</body>
+<script>
+    fetch("modifyPw")
+    .then((response) => response.json())
+    .then((result) => {
+        document.getElementById("pw").value = result.name;
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+</script>
+</html>

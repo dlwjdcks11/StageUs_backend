@@ -5,14 +5,45 @@
     <title>로그인</title>
 </head>
 <body>
-    ID: <input type="text"><br>
-    PW: <input type="text"><br>
-    <input type="submit" value="로그인">
+    ID: <input id="id" name="id" type="text"><br>
+    PW: <input id="pw" name="pw" type="text"><br>
+    <input id="modify" type="button" value="로그인">    
     <input id="register" type="button" value="회원가입">
+    <input id="modifyPw" type="button" value="비번변경">
+    <!-- <form action="signUp" type="GET">
+        <input type="submit" value="가입">
+    </form> -->
 
     <script type="text/javascript">
         document.getElementById("register").addEventListener('click', () => {
-            location.href = 'register'
+            location.href = 'register';
+        })
+        document.getElementById("modify").addEventListener('click', () => {
+            const id = document.getElementById("id").value;
+            const pw = document.getElementById("pw").value;
+
+            fetch("login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "id": id,
+                    "pw": pw,
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success) {
+                    location.href = 'modify';
+                }
+                else {
+                    alert("로그인 실패");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
         })
     </script>
 </body>

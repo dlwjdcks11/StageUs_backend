@@ -1,12 +1,23 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const session = require('express-session');
 const main = require('./router/main');
 const pageMove = require('./router/pageMove');
 const info = require('./router/register');
+const login = require('./router/login');
+const moveToMain = require('./router/moveToMain');
+const modify = require('./router/modify');
+const https = require('https');
+const fs = require('fs');
 
 const app = express(); // 객체 넣기
 const port = 9000;
+const httpsPort = 9443; // http: 80번, SSH: 22번, https: 443번
+const options = {
+    key: fs.readFileSync(path.join(__dirname, 'private.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'public.pem')),
+} // 유료는 ca(보안명세서)가 붙는다.
 
 const corsOptions = {
     origin: '*',
@@ -17,10 +28,39 @@ const corsOptions = {
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions)); 
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.get('*', (req, res, next) => {
+    const protocol = req.protocol;
+    console.log(protocol);
+
+    if (protocol == 'https') {
+        next(); // 그냥 넘기겠다.
+    }
+    else {
+        const destination = "https://" + req.hostname + ":9443" + req.url;
+        res.redirect(destination);
+    }
+})
+
+app.use(session({
+    secret: 'mykey',
+    saveUninitialized: true,
+    resave: false
+}));
+
+app.use('/modifyInfo', modify);
+app.use('/login', login);
+app.use('/info', info);
+app.use('/modify', moveToMain);
+app.use('/register', pageMove);
 app.use('/', main);
-app.use('/', pageMove);
-app.use('/', info)
 
 app.listen(port, (req, res) => {
     console.log(port + "포트로 서버 실행");
 });
+
+https.createServer(options, app).listen(httpsPort, (req, res) => {
+    console.log("HTTPS 서버가 " + httpsPort + "포트로 서버 실행");
+}) // options에 key가 들어간다.

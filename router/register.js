@@ -9,15 +9,27 @@ const client = new Client({
     password: '1234',
     port: 5432,
 });
-
 client.connect();
-client.query('SELECT NOW()', (err, res) => {
-    console.log(err, res);
-    client.end();
-})
 
-router.post('/register_check', (req, res) => {
-    
-})
+const sql1 = "INSERT INTO member.info (name, email, phone, address, stunum, school, time, id, pw)" + 
+            " VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);";
+
+router.post('', (req, res) => {
+    let value = [req.body.name,
+        req.body.email,
+        req.body.phone,
+        req.body.address,
+        req.body.stuNum,
+        req.body.school,
+        new Date(),
+        req.body.id,
+        req.body.pw];
+
+    client.query(sql1, value, (err, result) => {
+        console.log(err, result);
+    })
+
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
 
 module.exports = router;
