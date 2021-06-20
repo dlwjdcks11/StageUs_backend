@@ -31,14 +31,18 @@ router.get('', (req, res) => {
 });
 
 router.post('', (req, res) => {
+    const currentTime = new Date();
+    const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
+
     const value = [req.body.name,
         req.body.email,
         req.body.phone,
         req.body.address,
         req.body.stuNum,
         req.body.school,
-        new Date(),
+        koreaTime,
         req.session.user_id];
+
     client.query(sql2, value, (err, result) => {
         console.log(result);
     })

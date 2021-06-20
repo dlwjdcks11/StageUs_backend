@@ -15,13 +15,16 @@ const sql1 = "INSERT INTO member.info (name, email, phone, address, stunum, scho
             " VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);";
 
 router.post('', (req, res) => {
-    let value = [req.body.name,
+    const currentTime = new Date();
+    const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
+
+    const value = [req.body.name,
         req.body.email,
         req.body.phone,
         req.body.address,
         req.body.stuNum,
         req.body.school,
-        new Date(),
+        koreaTime,
         req.body.id,
         req.body.pw];
 

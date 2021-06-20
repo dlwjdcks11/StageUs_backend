@@ -14,8 +14,11 @@ client.connect();
 const sql = "UPDATE member.info SET (pw, time) = ($1, $2) WHERE id = $3";
 
 router.post('', (req, res) => {
+    const currentTime = new Date();
+    const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
+
     const value = [req.body.pw,
-        new Date(),
+        koreaTime,
         req.session.user_id];
         
     client.query(sql, value, (err, result) => {
