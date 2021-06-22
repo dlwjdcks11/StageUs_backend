@@ -1,7 +1,9 @@
 const path = require('path');
 const router = require('express').Router();
+const recordLog = require('./recordLog');
 
 router.get('', (req, res) => {
+    recordLog('UserName \'' + req.session.user_id + '\' move to modifyPassword page')
     res.sendFile(path.join(__dirname, '../modifyPwd.html'));
 })
 

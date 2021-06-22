@@ -1,6 +1,7 @@
 const path = require('path');
 const router = require('express').Router();
 const { Client } = require('pg');
+const recordLog = require('./recordLog')
 
 const client = new Client({
     user: 'stageus',
@@ -31,6 +32,7 @@ router.get('', (req, res) => {
 });
 
 router.post('', (req, res) => {
+    recordLog('UserName \'' + req.session.user_id + '\' has modified information')
     const currentTime = new Date();
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
 

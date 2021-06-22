@@ -1,6 +1,7 @@
 const path = require('path');
 const router = require('express').Router();
 const { Client } = require('pg');
+const recordLog = require('./recordLog');
 
 const client = new Client({
     user: 'stageus',
