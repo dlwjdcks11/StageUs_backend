@@ -28,6 +28,7 @@ router.post('', (req, res) => {
                 loginResult.success = true;
 
                 req.session.user_id = element.id;
+                recordLog('UserName ' + id + ' has logined')
             }
         })
         res.send(loginResult);

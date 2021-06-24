@@ -16,7 +16,7 @@ const sql1 = "INSERT INTO member.info (name, email, phone, address, stunum, scho
             " VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);";
 
 router.post('', (req, res) => {
-    recordLog('UserName \'' + req.body.id + '\' has registered');
+    recordLog('UserName ' + req.body.id + ' has registered');
     const currentTime = new Date();
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
 

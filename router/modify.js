@@ -32,7 +32,7 @@ router.get('', (req, res) => {
 });
 
 router.post('', (req, res) => {
-    recordLog('UserName \'' + req.session.user_id + '\' has modified information')
+    recordLog('UserName ' + req.session.user_id + ' has modified information')
     const currentTime = new Date();
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
 
