@@ -19,6 +19,9 @@ router.post('', (req, res) => {
     recordLog('UserName ' + req.body.id + ' has registered');
     const currentTime = new Date();
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
+    const registerResult = {
+        "success": true,
+    }
 
     const value = [req.body.name,
         req.body.email,
@@ -34,7 +37,7 @@ router.post('', (req, res) => {
         console.log(err, result);
     })
 
-    res.sendFile(path.join(__dirname, '../index.html'));
+    res.send(registerResult)
 });
 
 module.exports = router;

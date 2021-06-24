@@ -26,7 +26,7 @@ router.post('', (req, res) => {
     client.query(sql, value, (err, result) => {
         console.log(result);
     })
-    res.sendFile(path.join(__dirname, '../index.html'));
+    res.redirect('/');
 })
 
 module.exports = router;

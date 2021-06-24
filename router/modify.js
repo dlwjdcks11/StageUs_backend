@@ -35,7 +35,9 @@ router.post('', (req, res) => {
     recordLog('UserName ' + req.session.user_id + ' has modified information')
     const currentTime = new Date();
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
-
+    const modifyResult = {
+        "success": true,
+    }
     const value = [req.body.name,
         req.body.email,
         req.body.phone,
@@ -48,7 +50,7 @@ router.post('', (req, res) => {
     client.query(sql2, value, (err, result) => {
         console.log(result);
     })
-    res.sendFile(path.join(__dirname, '../index.html'));
+    res.send(modifyResult);
 })
 
 module.exports = router;

@@ -5,15 +5,13 @@
     <title>정보수정</title>
 </head>
 <body>
-    <form action="modifyInfo" accept-charset="utf-8" name="register_info" method="POST">
-        이름: <input type="text" name="name" id="name"><br>
-        이메일: <input type="text" name="email" id="email"><br>
-        전화번호: <input type="text" name="phone" id="phone"><br>
-        주소: <input type="text" name="address" id="address"><br>
-        학번: <input type="text" name="stuNum" id="stuNum"><br>
-        학교: <input type="text" name="school" id="school"><br>
-        <input id="complete" type="submit" value="수정하기">
-    </form>
+    이름: <input type="text" name="name" id="name"><br>
+    이메일: <input type="text" name="email" id="email"><br>
+    전화번호: <input type="text" name="phone" id="phone"><br>
+    주소: <input type="text" name="address" id="address"><br>
+    학번: <input type="text" name="stuNum" id="stuNum"><br>
+    학교: <input type="text" name="school" id="school"><br>
+    <input id="complete" type="button" value="수정하기">
     <input id="modifyPw" type="button" value="비번변경">
 </body>
 <script>
@@ -34,5 +32,63 @@
     document.getElementById("modifyPw").addEventListener('click', () => {
         location.href = 'pwChange';
     })
+
+    document.getElementById("complete").addEventListener('click', () => {
+        const name = document.getElementById("name").value; 
+        const email = document.getElementById("email").value; 
+        const phone = document.getElementById("phone").value; 
+        const address = document.getElementById("address").value;
+        const stuNum = document.getElementById("stuNum").value; 
+        const school = document.getElementById("school").value;
+        const inputValues = [name, email, phone, address, stuNum, school]
+
+        const emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        const phoneRule = /^\d{2,3}-\d{3,4}-\d{4}$/;
+        const emailFlag = emailRule.test(email);
+        const phoneFlag = phoneRule.test(phone);
+        let nullFlag = false;
+        inputValues.forEach(element => {
+            if (element === '') {
+                nullFlag = true;
+            }
+        })
+
+        if (!emailFlag) {
+            alert("이메일 양식이 틀렸습니다.");
+        }
+        if (!phoneFlag) {
+            alert("핸드폰 번호 양식이 틀렸습니다.");
+        }
+        if (nullFlag) {
+            alert("입력하지 않은 칸이 있습니다.");
+        }
+
+        if (emailFlag && phoneFlag && !nullFlag) {
+            fetch("modifyInfo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "name": name,
+                    "email": email,
+                    "phone": phone,
+                    "address": address,
+                    "stuNum": stuNum,
+                    "school": school,
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success) {
+                    location.href = '/';
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+        }
+    })
+
 </script>
 </html>
