@@ -1,6 +1,5 @@
-const path = require('path');
 const mongoose = require('mongoose');
-const log = require('./schema/logSchema');
+const log1 = require('./schema/logSchema');
 const logSchema = require('./schema/logSchema')
 
 const recordLog = (_name) => {
@@ -14,20 +13,13 @@ const recordLog = (_name) => {
         } // 옵션 꼭 필요, 비동기 통신
     )
     .then(() => {
-        const Log = new log({
-            name: _name,
+        const Log = new log1({
+            apiName: _name,
         })
-        Log.save((error, data) => {
-            if (error) {
-                console.log(error);
-            }
-            else {
-                console.log("is saved");
-            }
-        });
+        Log.save();
     })
     .then(() => {
-        log.find((error, data) => {
+        log1.find((error, data) => {
             if (error) {
                 console.log(error);
             }

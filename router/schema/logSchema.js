@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 const logSchema = mongoose.Schema({
+    apiName: "string",
+    id: "string",
+    pw: "string",
     name: "string",
+    email: "string",
+    phone: "string",
+    address: "string",
+    stuNum: "string",
+    school: "string",
+    loginSuccess: "boolean",
 }, { timestamps: { currentTime: () => new Date(new Date().getTime() + (9 * 60 * 60 * 1000))}})
 
-module.exports = mongoose.model('log', logSchema);
+module.exports = mongoose.model('log1', logSchema);

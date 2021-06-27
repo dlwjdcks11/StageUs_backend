@@ -17,6 +17,7 @@
     "mongoose-timestamp": "^0.6.0",
     "openssl": "^1.1.0",
     "pg": "^8.6.0",
-    "pg-promise": "^10.10.2"
+    "pg-promise": "^10.10.2",
+    "pm2": "^5.1.0"
   }
 }
