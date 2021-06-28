@@ -22,6 +22,9 @@ const options = {
     cert: fs.readFileSync(path.join(__dirname, 'public.pem')),
 } // 유료는 ca(보안명세서)가 붙는다.
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+//Node.js 환경에서 Https/SSL/TLS 검사를 비활성화한다.
+
 const corsOptions = {
     origin: '*',
     credentials: true,
