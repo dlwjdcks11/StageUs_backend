@@ -10,6 +10,7 @@ const moveToMain = require('./router/moveToMain');
 const moveToPwChange = require('./router/moveToPwChange');
 const modify = require('./router/modify');
 const modifyPw = require('./router/modifyPw');
+const recordLog = require('./router/recordLog');
 const https = require('https');
 const fs = require('fs');
 
@@ -52,6 +53,7 @@ app.use(session({
     resave: false
 }));
 
+app.use('/recordLog', recordLog);
 app.use('/modifyPw', modifyPw);
 app.use('/pwChange', moveToPwChange);
 app.use('/modifyInfo', modify);

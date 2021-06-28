@@ -1,7 +1,6 @@
-const path = require('path');
 const router = require('express').Router();
+const fetch = require('node-fetch')
 const { Client } = require('pg');
-const recordLog = require('./recordLog')
 
 const client = new Client({
     user: 'stageus',
@@ -32,7 +31,28 @@ router.get('', (req, res) => {
 });
 
 router.post('', (req, res) => {
-    recordLog('UserName ' + req.session.user_id + ' has modified information')
+    fetch("https://" + req.hostname + ":9443/recordLog", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            apiName: "MODIFY",
+            description: "Modify user information without password",
+            id: req.session.user_id,
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            address: req.body.address,
+            stuNum: req.body.stuNum,
+            school: req.body.school
+        })
+    })
+    .then((response) => response.json())
+    .catch((e) => {
+        console.log(e);
+    });
+
     const currentTime = new Date();
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
     const modifyResult = {

@@ -1,7 +1,6 @@
-const path = require('path');
 const router = require('express').Router();
+const fetch = require('node-fetch');
 const { Client } = require('pg');
-const recordLog = require('./recordLog');
 
 const client = new Client({
     user: 'stageus',
@@ -28,9 +27,46 @@ router.post('', (req, res) => {
                 loginResult.success = true;
 
                 req.session.user_id = element.id;
-                recordLog('UserName ' + id + ' has logined')
             }
         })
+
+        if (loginResult.success) {
+            fetch("https://" + req.hostname + ":9443/recordLog", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    apiName: "LOGIN",
+                    description: "Login success",
+                    id: req.body.id,
+                    loginSuccess: true,
+                })
+            })
+            .then((response) => response.json())
+            .catch((e) => {
+                console.log(e);
+            });
+        }
+        else {
+            fetch("https://" + req.hostname + ":9443/recordLog", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    apiName: "LOGIN",
+                    description: "Login failed",
+                    id: req.body.id,
+                    loginSuccess: false,
+                })
+            })
+            .then((response) => response.json())
+            .catch((e) => {
+                console.log(e);
+            });
+        }
+
         res.send(loginResult);
     })
 });
