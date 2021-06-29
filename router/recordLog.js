@@ -67,16 +67,6 @@ router.post('', (req, res) => {
             Log.save();
         }
     })
-    .then(() => {
-        UserLog.find((error, data) => {
-            if (error) {
-                console.log(error);
-            }
-            else {
-                console.log(data);
-            }
-        })
-    })
     .catch((error) => {
         console.log(error);
     })

@@ -23,7 +23,7 @@ const options = {
 } // 유료는 ca(보안명세서)가 붙는다.
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-//Node.js 환경에서 Https/SSL/TLS 검사를 비활성화한다.
+//Node.js 환경에서 https/SSL/TLS 검사를 비활성화한다.
 
 const corsOptions = {
     origin: '*',
@@ -39,7 +39,6 @@ app.use(express.json());
 
 app.get('*', (req, res, next) => {
     const protocol = req.protocol;
-    console.log(protocol);
 
     if (protocol == 'https') {
         next(); // 그냥 넘기겠다.
