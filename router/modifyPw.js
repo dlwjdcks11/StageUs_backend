@@ -33,10 +33,8 @@ router.post('', (req, res) => {
 
     const currentTime = new Date();
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
-    const value = [req.body.pw,
-        koreaTime,
-        req.session.user_id];
-        
+    const value = [req.body.pw, koreaTime, req.session.user_id];
+    
     client.query(sql, value, (err, result) => {
         console.log(result);
     })

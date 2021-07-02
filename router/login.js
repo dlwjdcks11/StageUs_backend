@@ -25,7 +25,6 @@ router.post('', (req, res) => {
         queryResult.forEach(element => {
             if (element.id === id && element.pw === pw) {
                 loginResult.success = true;
-
                 req.session.user_id = element.id;
             }
         })
