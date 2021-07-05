@@ -6,23 +6,24 @@ router.get('/', (req, res) => {
     if (req.cookies['login'] !== undefined) {
         res.redirect('/modify');
     }
-
-    fetch("https://" + req.hostname + ":9443/recordLog", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            apiName: "CONNECT",
-            description: "Connect to main page",
+    else {
+        fetch("https://" + req.hostname + ":9443/recordLog", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                apiName: "CONNECT",
+                description: "Connect to main page",
+            })
         })
-    })
-    .then((response) => response.json())
-    .catch((e) => {
-        console.log(e);
-    });
-
-    res.sendFile(path.join(__dirname, '../index.html'));
+        .then((response) => response.json())
+        .catch((e) => {
+            console.log(e);
+        });
+    
+        res.sendFile(path.join(__dirname, '../index.html'));
+    }
 });
 
 module.exports = router;
