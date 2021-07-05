@@ -3,6 +3,10 @@ const router = require('express').Router();
 const fetch = require('node-fetch');
 
 router.get('/', (req, res) => {
+    if (req.cookies['login'] !== undefined) {
+        res.redirect('/modify');
+    }
+
     fetch("https://" + req.hostname + ":9443/recordLog", {
         method: "POST",
         headers: {

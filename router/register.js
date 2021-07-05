@@ -54,9 +54,7 @@ router.post('', (req, res) => {
         req.body.id,
         req.body.pw];
 
-    client.query(sql1, value, (err, result) => {
-        console.log(err, result);
-    })
+    client.query(sql1, value)
 
     res.send(registerResult)
 });

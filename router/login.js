@@ -26,6 +26,7 @@ router.post('', (req, res) => {
             if (element.id === id && element.pw === pw) {
                 loginResult.success = true;
                 req.session.user_id = element.id;
+                res.cookie('login', id, { maxAge: 10 * 1000 });
             }
         })
 

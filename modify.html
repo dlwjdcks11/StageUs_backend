@@ -41,7 +41,7 @@
         const stuNum = document.getElementById("stuNum").value; 
         const school = document.getElementById("school").value;
         const inputValues = [name, email, phone, address, stuNum, school]
-
+        
         const emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         const phoneRule = /^\d{2,3}-\d{3,4}-\d{4}$/;
         const emailFlag = emailRule.test(email);

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
+const cookieParser = require('cookie-parser')
 const main = require('./router/main');
 const pageMove = require('./router/pageMove');
 const inputInfo = require('./router/register');
@@ -36,6 +37,7 @@ app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser())
 
 app.get('*', (req, res, next) => {
     const protocol = req.protocol;
