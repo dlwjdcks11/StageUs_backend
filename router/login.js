@@ -70,7 +70,5 @@ router.post('', (req, res) => {
         res.send(loginResult);
     })
 });
-// get: 서버에서 값을 가져오기만 하겠다.
-// post: 클라이언트가 값을 보내준다.
 
 module.exports = router;
