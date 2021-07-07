@@ -26,19 +26,6 @@ const options = {
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 //Node.js 환경에서 https/SSL/TLS 검사를 비활성화한다.
 
-const corsOptions = {
-    origin: '*',
-    credentials: true,
-    methods: ['POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-};
-app.options('*', cors(corsOptions));
-app.use(cors(corsOptions)); 
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(cookieParser())
-
 app.get('*', (req, res, next) => {
     const protocol = req.protocol;
 
@@ -51,12 +38,23 @@ app.get('*', (req, res, next) => {
     }
 })
 
+const corsOptions = {
+    origin: '*',
+    credentials: true,
+    methods: ['POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions)); 
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cookieParser())
 app.use(session({
     secret: 'mykey',
     saveUninitialized: true,
     resave: false
 }));
-
 app.use('/recordLog', recordLog);
 app.use('/modifyPw', modifyPw);
 app.use('/pwChange', moveToPwChange);
