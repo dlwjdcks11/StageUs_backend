@@ -9,11 +9,30 @@
     PW: <input id="pw" name="pw" type="text"><br>
     <input id="modify" type="button" value="로그인">    
     <input id="register" type="button" value="회원가입">
-    <!-- <form action="signUp" type="GET">
-        <input type="submit" value="가입">
-    </form> -->
 
     <script type="text/javascript">
+        // 토큰 체크
+        window.onload = () => {
+            if (localStorage.getItem("token")) {
+                fetch("token/verify", {
+                    "method": "POST",
+                    "headers": {
+                        // 보내주는 값 없어서 content-type 노필요
+                        "auth": localStorage.getItem("token")
+                    }
+                })
+                .then((response) => response.json())
+                .then((result) => {
+                    if (result.success) {
+                        location.href = "modify";
+                    }
+                    else {
+                        alert(result.message);
+                    }
+                })
+            }
+        }
+
         document.getElementById("register").addEventListener('click', () => {
             location.href = 'register';
         })
@@ -21,7 +40,7 @@
             const id = document.getElementById("id").value;
             const pw = document.getElementById("pw").value;
 
-            fetch("login", {
+            fetch("token", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -33,7 +52,9 @@
             })
             .then((response) => response.json())
             .then((result) => {
+                console.log(result)
                 if (result.success) {
+                    localStorage.setItem("token", result.token);
                     location.href = 'modify';
                 }
                 else {

@@ -12,6 +12,7 @@ const moveToPwChange = require('./router/moveToPwChange');
 const modify = require('./router/modify');
 const modifyPw = require('./router/modifyPw');
 const recordLog = require('./router/recordLog');
+const token = require('./router/token')
 const https = require('https');
 const fs = require('fs');
 
@@ -55,6 +56,8 @@ app.use(session({
     saveUninitialized: true,
     resave: false
 }));
+
+app.use('/token', token)
 app.use('/recordLog', recordLog);
 app.use('/modifyPw', modifyPw);
 app.use('/pwChange', moveToPwChange);
