@@ -12,26 +12,26 @@
 
     <script type="text/javascript">
         // 토큰 체크
-        window.onload = () => {
-            if (localStorage.getItem("token")) {
-                fetch("token/verify", {
-                    "method": "POST",
-                    "headers": {
-                        // 보내주는 값 없어서 content-type 노필요
-                        "auth": localStorage.getItem("token")
-                    }
-                })
-                .then((response) => response.json())
-                .then((result) => {
-                    if (result.success) {
-                        location.href = "modify";
-                    }
-                    else {
-                        alert(result.message);
-                    }
-                })
-            }
-        }
+        // window.onload = () => {
+        //     if (localStorage.getItem("token")) {
+        //         fetch("token/verify", {
+        //             "method": "POST",
+        //             "headers": {
+        //                 // 보내주는 값 없어서 content-type 노필요
+        //                 "auth": localStorage.getItem("token")
+        //             }
+        //         })
+        //         .then((response) => response.json())
+        //         .then((result) => {
+        //             if (result.success) {
+        //                 location.href = "modify";
+        //             }
+        //             else {
+        //                 alert(result.message);
+        //             }
+        //         })
+        //     }
+        // }
 
         document.getElementById("register").addEventListener('click', () => {
             location.href = 'register';
@@ -40,7 +40,7 @@
             const id = document.getElementById("id").value;
             const pw = document.getElementById("pw").value;
 
-            fetch("token", {
+            fetch("login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

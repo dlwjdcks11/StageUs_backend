@@ -2,7 +2,7 @@ const path = require('path');
 const router = require('express').Router();
 
 router.get('', (req, res) => {
-    res.sendFile(path.join(__dirname, '../test.html'));
+    res.sendFile(path.join(__dirname, '../modify.html'));
 })
 
 module.exports = router;
