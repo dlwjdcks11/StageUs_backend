@@ -37,6 +37,11 @@ router.post('/getInfo', (req, res) => {
 });
 
 router.post('', (req, res) => {
+    let user_id = "";
+    jwt.verify(req.headers.auth, secretKey, (err, decoded) => {
+        user_id = decoded.id;
+    })
+
     fetch("https://" + req.hostname + ":9443/recordLog", {
         method: "POST",
         headers: {
@@ -45,7 +50,7 @@ router.post('', (req, res) => {
         body: JSON.stringify({
             apiName: "MODIFY",
             description: "Modify user information without password",
-            id: req.session.user_id,
+            id: user_id,
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
@@ -71,7 +76,7 @@ router.post('', (req, res) => {
         req.body.stuNum,
         req.body.school,
         koreaTime,
-        req.session.user_id];
+        user_id];
 
     client.query(sql, value);
     res.send(modifyResult);

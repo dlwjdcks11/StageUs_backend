@@ -26,8 +26,7 @@ router.post('', (req, res) => {
         const queryResult = result.rows;
         queryResult.forEach(element => {
             if (element.id === id && element.pw === pw) {
-                req.session.user_id = element.id;
-
+                // 토큰 생성
                 const jwtToken = jwt.sign({
                     id: element.id,
                     name: element.name,
