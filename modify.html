@@ -15,7 +15,12 @@
     <input id="modifyPw" type="button" value="비번변경">
 </body>
 <script>
-    fetch("modifyInfo")
+    fetch("modifyInfo/getInfo", {
+            "method": "POST",
+            "headers": {
+                "auth": localStorage.getItem("token")
+            }
+        })
     .then((response) => response.json())
     .then((result) => {
         document.getElementById("name").value = result.name;

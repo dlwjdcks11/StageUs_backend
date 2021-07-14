@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const fetch = require('node-fetch');
 const { Client } = require('pg');
+const jwt = require('jsonwebtoken')
 
+const secretKey = "LOVETHEWAYYOUMOVEFUNKOVERLOAD";
+const sql = "SELECT * FROM member.info;"
 const client = new Client({
     user: 'stageus',
     host: 'localhost',
@@ -9,24 +12,36 @@ const client = new Client({
     password: '1234',
     port: 5432,
 });
-client.connect();
+client.connect();    
 
-const sql = "SELECT id, pw FROM member.info;"
-    
 router.post('', (req, res) => {
     const id = req.body.id;
     const pw = req.body.pw;
     const loginResult = {
         "success": false,
+        "token": null,
     }
 
     client.query(sql, (err, result) => {
         const queryResult = result.rows;
         queryResult.forEach(element => {
             if (element.id === id && element.pw === pw) {
-                loginResult.success = true;
                 req.session.user_id = element.id;
-                res.cookie('login', 'logined', { maxAge: 60 * 1000 });
+
+                const jwtToken = jwt.sign({
+                    id: element.id,
+                    name: element.name,
+                    email: element.email,
+                    phone: element.phone,
+                    address: element.address,
+                    stuNum: element.stunum,
+                    school: element.school
+                }, secretKey, {
+                    expiresIn: "1m",
+                    issuer: "stageus"
+                })
+                loginResult.success = true;
+                loginResult.token = jwtToken;
             }
         })
 
