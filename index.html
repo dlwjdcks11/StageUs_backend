@@ -2,6 +2,7 @@
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>로그인</title>
 </head>
 <body>
@@ -9,10 +10,24 @@
     PW: <input id="pw" name="pw" type="text"><br>
     <input id="modify" type="button" value="로그인">    
     <input id="register" type="button" value="회원가입">
+    <br>
+    <div id="root"></div>
 
     <script type="text/javascript">
         // 토큰 체크
         window.onload = () => {
+            fetch("naverLogin")
+            .then((response) => response.json())
+            .then((result) => {
+                let naverLoginBtn = document.createElement('a');
+                let naverLoginImg = document.createElement('img');
+                naverLoginBtn.setAttribute('href', result.a_href);
+                naverLoginImg.setAttribute('height', result.img_height);
+                naverLoginImg.setAttribute('src', result.img_src);
+                naverLoginBtn.appendChild(naverLoginImg);
+                document.getElementById("root").appendChild(naverLoginBtn);
+            })
+
             if (localStorage.getItem("token")) {
                 fetch("token", {
                     "method": "POST",
@@ -35,7 +50,7 @@
 
         document.getElementById("register").addEventListener('click', () => {
             location.href = 'register';
-        })
+        });
         document.getElementById("modify").addEventListener('click', () => {
             const id = document.getElementById("id").value;
             const pw = document.getElementById("pw").value;
@@ -52,7 +67,6 @@
             })
             .then((response) => response.json())
             .then((result) => {
-                console.log(result)
                 if (result.success) {
                     localStorage.setItem("token", result.token);
                     location.href = 'modify';
@@ -64,8 +78,7 @@
             .catch((e) => {
                 console.log(e);
             });
-        })
-
+        });
     </script>
 </body>
 </html>

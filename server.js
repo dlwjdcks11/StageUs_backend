@@ -12,7 +12,8 @@ const moveToPwChange = require('./router/moveToPwChange');
 const modify = require('./router/modify');
 const modifyPw = require('./router/modifyPw');
 const recordLog = require('./router/recordLog');
-const token = require('./router/token')
+const token = require('./router/token');
+const naverLogin = require('./router/naverLogin');
 const https = require('https');
 const fs = require('fs');
 
@@ -57,11 +58,12 @@ app.use(session({
     resave: false
 }));
 
-app.use('/token', token)
+app.use('/token', token);
 app.use('/recordLog', recordLog);
 app.use('/modifyPw', modifyPw);
 app.use('/pwChange', moveToPwChange);
 app.use('/modifyInfo', modify);
+app.use('/naverLogin', naverLogin)
 app.use('/login', login);
 app.use('/inputInfo', inputInfo);
 app.use('/modify', moveToMain);
