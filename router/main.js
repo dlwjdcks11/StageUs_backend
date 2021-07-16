@@ -18,7 +18,8 @@ router.get('/', (req, res) => {
         console.log(e);
     });
 
-    res.sendFile(path.join(__dirname, '../index.html'));
+    //res.sendFile(path.join(__dirname, '../index.html'));
+    res.sendFile(path.join(__dirname, '../week5_index.html'));
 });
 
 module.exports = router;

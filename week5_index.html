@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="증가" onclick="increase()">
+    <input type="button" value="출력" onclick="print()">
+    <input type="button" value="초기화" onclick="init()">
+    <br>
+    <input type="button" value="마우스" onclick="addItem(0)">
+    <input type="button" value="키보드" onclick="addItem(1)">
+    <input type="button" value="모니터" onclick="addItem(2)">
+    <input type="button" value="장바구니 보기" onclick="printBasket()">
+
+    <script>
+        const addItem = (index) => {
+            let item = null
+            if (index === 0) {
+                item = "mouse"
+            }
+            else if (index === 1) {
+                item = "keyboard"
+            }
+            else if (index === 2) {
+                item = "monitor"
+            }
+
+            fetch("addItem", {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": JSON.stringify({
+                    "name": "stageus",
+                    "item": item
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                alert(result.message);
+            })
+        }
+        const printBasket = () => {
+            fetch("printBasket", {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": JSON.stringify({
+                    "name": "stageus"
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                alert(result.basket);
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+
+        const increase = () => {
+            fetch("increase", {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": JSON.stringify({
+                    "name": "stageus" // 원래는 header에서 인증으로 보내줘야함.
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success) {
+                    alert("숫자 증가")
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+        const print = () => {
+            fetch("print", {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": JSON.stringify({
+                    "name": "stageus"
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                alert(result.number);
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+        const init = () => {
+            fetch("init", {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": JSON.stringify({
+                    "name": "stageus"
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success) {
+                    alert("초기화")
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+    </script>
+</body>
+</html>

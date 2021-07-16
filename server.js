@@ -58,6 +58,19 @@ app.use(session({
     resave: false
 }));
 
+// week5
+const increase = require('./router/increase')
+app.use('/increase', increase)
+const print = require('./router/print')
+app.use('/print', print)
+const init = require('./router/init')
+app.use('/init', init)
+
+const addItem = require('./router/addItem')
+app.use('/addItem', addItem)
+const printBasket = require('./router/printBasket')
+app.use('/printBasket', printBasket);
+
 app.use('/token', token);
 app.use('/recordLog', recordLog);
 app.use('/modifyPw', modifyPw);
