@@ -9,3 +9,6 @@ DNS, SSL
 
 ### week4
 Auth 방식 4가지
+
+### week5
+Redis
