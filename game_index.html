@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>Game main page</title>
+</head>
+<body>
+    닉네임: <input type="text" id="nickname"><br>
+    레벨: <input type="text" id="level"><br>
+    경험치: <input type="text" id="exp"><br>
+    공격력: <input type="text" id="attack"><br>
+    골드: <input type="text" id="gold"><br>
+    <input type="button" id="hunt" value="사냥" onclick="hunt()">
+    <input type="button" id="item" value="아이템" onclick="item()">
+
+    <script>
+        window.onload = () => {
+            fetch("getCharacterInfo")
+            .then((response) => response.json())
+            .then((result) => {
+                document.getElementById("nickname").value = result.nickname;
+                document.getElementById("level").value = result.level;
+                document.getElementById("exp").value = result.exp;
+                document.getElementById("attack").value = result.attack;
+                document.getElementById("gold").value = result.gold;
+            })
+        }
+        const hunt = () => {
+            fetch("hunt")
+            .then((response) => response.json())
+            .then((result) => {
+                alert(result.message)
+                document.getElementById("exp").value = result.exp;
+                document.getElementById("gold").value = result.gold;
+            })
+        }
+        const item = () => {
+            if (parseInt(document.getElementById("gold").value) > 10) {
+                fetch("item")
+                .then((response) => response.json())
+                .then((result) => {
+                    alert(result.message)
+                    document.getElementById("gold").value = result.gold;
+                    document.getElementById("attack").value = result.attack;
+                })
+            }
+            else {
+                alert("골드가 부족합니다.")
+            }
+        }
+    </script>
+</body>
+</html>

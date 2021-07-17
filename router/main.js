@@ -19,7 +19,8 @@ router.get('/', (req, res) => {
     });
 
     //res.sendFile(path.join(__dirname, '../index.html'));
-    res.sendFile(path.join(__dirname, '../week5_index.html'));
+    //res.sendFile(path.join(__dirname, '../week5_index.html'));
+    res.sendFile(path.join(__dirname, '../game_index.html'));
 });
 
 module.exports = router;

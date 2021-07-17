@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const session = require('express-session');
-const cookieParser = require('cookie-parser')
 const main = require('./router/main');
 const pageMove = require('./router/pageMove');
 const inputInfo = require('./router/register');
@@ -51,12 +49,6 @@ app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cookieParser())
-app.use(session({
-    secret: 'mykey',
-    saveUninitialized: true,
-    resave: false
-}));
 
 // week5
 const increase = require('./router/increase')
@@ -70,6 +62,14 @@ const addItem = require('./router/addItem')
 app.use('/addItem', addItem)
 const printBasket = require('./router/printBasket')
 app.use('/printBasket', printBasket);
+
+// 과제용
+const getCharacterInfo = require('./router/getCharacterInfo')
+app.use('/getCharacterInfo', getCharacterInfo)
+const hunt = require('./router/hunt')
+app.use('/hunt', hunt)
+// const item = require('./router/item')
+// app.use('/item', item)
 
 app.use('/token', token);
 app.use('/recordLog', recordLog);
