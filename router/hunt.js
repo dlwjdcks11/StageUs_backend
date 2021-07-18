@@ -3,10 +3,6 @@ const redis = require('redis')
 const client = redis.createClient();
 
 router.get('', (req, res) => {
-    client.on("error", (e) => {
-        console.log(e);
-    })
-
     client.hgetall("character", (err, value) => {
         client.hset("character", "exp", String(parseInt(value.exp) + 12));
         client.hset("character", "gold", String(parseInt(value.gold) + 2));

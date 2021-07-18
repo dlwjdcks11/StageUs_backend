@@ -2,16 +2,16 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const main = require('./router/main');
-const pageMove = require('./router/pageMove');
-const inputInfo = require('./router/register');
-const login = require('./router/login');
-const moveToMain = require('./router/moveToMain');
-const moveToPwChange = require('./router/moveToPwChange');
-const modify = require('./router/modify');
-const modifyPw = require('./router/modifyPw');
-const recordLog = require('./router/recordLog');
-const token = require('./router/token');
-const naverLogin = require('./router/naverLogin');
+// const pageMove = require('./router/pageMove');
+// const inputInfo = require('./router/register');
+// const login = require('./router/login');
+// const moveToMain = require('./router/moveToMain');
+// const moveToPwChange = require('./router/moveToPwChange');
+// const modify = require('./router/modify');
+// const modifyPw = require('./router/modifyPw');
+// const recordLog = require('./router/recordLog');
+// const token = require('./router/token');
+// const naverLogin = require('./router/naverLogin');
 const https = require('https');
 const fs = require('fs');
 
@@ -51,36 +51,40 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // week5
-const increase = require('./router/increase')
-app.use('/increase', increase)
-const print = require('./router/print')
-app.use('/print', print)
-const init = require('./router/init')
-app.use('/init', init)
+// const increase = require('./router/increase')
+// app.use('/increase', increase)
+// const print = require('./router/print')
+// app.use('/print', print)
+// const init = require('./router/init')
+// app.use('/init', init)
 
-const addItem = require('./router/addItem')
-app.use('/addItem', addItem)
-const printBasket = require('./router/printBasket')
-app.use('/printBasket', printBasket);
+// const addItem = require('./router/addItem')
+// app.use('/addItem', addItem)
+// const printBasket = require('./router/printBasket')
+// app.use('/printBasket', printBasket);
 
 // 과제용
-const getCharacterInfo = require('./router/getCharacterInfo')
-app.use('/getCharacterInfo', getCharacterInfo)
+// const autoSave = require('./router/autoSave')
+// app.use('/autoSave', autoSave)
+const levelUp = require('./router/levelUp')
+app.use('/levelUp', levelUp);
 const hunt = require('./router/hunt')
 app.use('/hunt', hunt)
-// const item = require('./router/item')
-// app.use('/item', item)
+const item = require('./router/item')
+app.use('/item', item)
+const getCharacterInfo = require('./router/getCharacterInfo');
+app.use('/getCharacterInfo', getCharacterInfo)
 
-app.use('/token', token);
-app.use('/recordLog', recordLog);
-app.use('/modifyPw', modifyPw);
-app.use('/pwChange', moveToPwChange);
-app.use('/modifyInfo', modify);
-app.use('/naverLogin', naverLogin)
-app.use('/login', login);
-app.use('/inputInfo', inputInfo);
-app.use('/modify', moveToMain);
-app.use('/register', pageMove);
+// app.use('/token', token);
+// app.use('/recordLog', recordLog);
+// app.use('/modifyPw', modifyPw);
+// app.use('/pwChange', moveToPwChange);
+// app.use('/modifyInfo', modify);
+// app.use('/naverLogin', naverLogin)
+// app.use('/login', login);
+// app.use('/inputInfo', inputInfo);
+// app.use('/modify', moveToMain);
+// app.use('/register', pageMove);
 app.use('/', main);
 
 app.listen(port, (req, res) => {
