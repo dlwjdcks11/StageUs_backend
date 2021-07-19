@@ -10,6 +10,7 @@ router.get('', (req, res) => {
 
     client.hexists("character", "nickname", (err, value) => {
         if (value === 1) { // 이미 존재
+            console.log("삭제")
             client.hgetall("character", (err2, value2) => {
                 const result = {
                     "nickname": value2.nickname,
@@ -18,11 +19,21 @@ router.get('', (req, res) => {
                     "attack": value2.attack,
                     "gold": value2.gold
                 }
-
                 res.send(result);
             })
+            // client.del("character", () => {
+            //     const result = {
+            //         "nickname": "asdf",
+            //         "level": 0,
+            //         "exp": 0,
+            //         "attack": 0,
+            //         "gold": 0
+            //     }
+            //     res.send(result);
+            // });
         }
         else { // 최초생성
+            console.log("최초생성")
             const dbClient = new Client({
                 user: 'stageus',
                 host: 'localhost',
@@ -33,21 +44,23 @@ router.get('', (req, res) => {
             const sql = "SELECT * FROM gameInfo.character;"
             dbClient.connect();
             dbClient.query(sql, (e, qResult) => {
-                const result = {
-                    "nickname": qResult.rows[0].nickname,
-                    "level": qResult.rows[0].level,
-                    "exp": qResult.rows[0].exp,
-                    "attack": qResult.rows[0].attack,
-                    "gold": qResult.rows[0].gold
-                }
                 client.hmset("character", [
-                    "nickname", result.nickname,
-                    "level", result.level,
-                    "exp", result.exp,
-                    "attack", result.attack,
-                    "gold", result.gold
+                    "nickname", qResult.rows[0].nickname,
+                    "level", qResult.rows[0].level,
+                    "exp", qResult.rows[0].exp,
+                    "attack", qResult.rows[0].attack,
+                    "gold", qResult.rows[0].gold
                 ], () => {
-                    res.send(result);
+                    client.expire("character", 90, () => {
+                        const result = {
+                            "nickname": qResult.rows[0].nickname,
+                            "level": qResult.rows[0].level,
+                            "exp": qResult.rows[0].exp,
+                            "attack": qResult.rows[0].attack,
+                            "gold": qResult.rows[0].gold
+                        }
+                        res.send(result);
+                    });
                 })
             });
         }

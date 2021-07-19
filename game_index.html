@@ -25,13 +25,15 @@
                 document.getElementById("gold").value = result.gold;
             })
         }
-        const autoSave = setInterval(() => {
-            fetch("autoSave")
+
+        setInterval(() => {
+            fetch("autoSaveAPI")
             .then((response) => response.json())
             .then((result) => {
                 alert(result.message)
             })
         }, 30 * 1000)
+
         const hunt = () => {
             fetch("hunt")
             .then((response) => response.json())
@@ -51,8 +53,9 @@
                 }
             })
         }
+        
         const item = () => {
-            if (parseInt(document.getElementById("gold").value) > 10) {
+            if (parseInt(document.getElementById("gold").value) >= 10) {
                 fetch("item")
                 .then((response) => response.json())
                 .then((result) => {
