@@ -1,4 +1,4 @@
-const redis = require('redis')
+const redis = require('redis');
 const client = redis.createClient();
 const { Client } = require('pg');
 const sql = "UPDATE gameInfo.character SET (level, exp, attack, gold) = ($1, $2, $3, $4) WHERE nickname = $5";

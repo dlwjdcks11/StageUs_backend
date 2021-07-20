@@ -10,7 +10,7 @@ router.get('', (req, res) => {
 
     client.hexists("character", "nickname", (err, value) => {
         if (value === 1) { // 이미 존재
-            console.log("삭제")
+            console.log("이미 존재")
             client.hgetall("character", (err2, value2) => {
                 const result = {
                     "nickname": value2.nickname,
@@ -21,16 +21,6 @@ router.get('', (req, res) => {
                 }
                 res.send(result);
             })
-            // client.del("character", () => {
-            //     const result = {
-            //         "nickname": "asdf",
-            //         "level": 0,
-            //         "exp": 0,
-            //         "attack": 0,
-            //         "gold": 0
-            //     }
-            //     res.send(result);
-            // });
         }
         else { // 최초생성
             console.log("최초생성")

@@ -25,15 +25,7 @@
                 document.getElementById("gold").value = result.gold;
             })
         }
-
-        setInterval(() => {
-            fetch("autoSaveAPI")
-            .then((response) => response.json())
-            .then((result) => {
-                alert(result.message)
-            })
-        }, 30 * 1000)
-
+        
         const hunt = () => {
             fetch("hunt")
             .then((response) => response.json())

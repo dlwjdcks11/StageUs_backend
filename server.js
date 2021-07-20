@@ -64,8 +64,6 @@ app.use(express.json());
 // app.use('/printBasket', printBasket);
 
 // 과제용
-const autoSaveAPI = require('./router/autoSaveAPI')
-app.use('/autoSaveAPI', autoSaveAPI)
 const levelUp = require('./router/levelUp')
 app.use('/levelUp', levelUp);
 const hunt = require('./router/hunt')

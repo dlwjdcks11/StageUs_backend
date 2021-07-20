@@ -4,15 +4,19 @@ const client = redis.createClient();
 
 router.get('', (req, res) => {
     client.hgetall("character", (err, value) => {
-        client.hset("character", "gold", String(parseInt(value.gold) - 10));
-        client.hset("character", "attack", String(parseInt(value.attack) + 2));
-        const result = { 
-            message: "골드를 10 소모해, 공격력이 2 증가했습니다.",
-            gold: parseInt(value.gold) - 10,
-            attack: parseInt(value.attack) + 2,
-        }
-
-        res.send(result);
+        client.hmset("character", [
+            "gold", String(parseInt(value.gold) - 10),
+            "attack", String(parseInt(value.attack) + 2)
+        ], () => {
+            client.expire("character", 90, () => {
+                const result = { 
+                    message: "골드를 10 소모해, 공격력이 2 증가했습니다.",
+                    gold: parseInt(value.gold) - 10,
+                    attack: parseInt(value.attack) + 2,
+                }
+                res.send(result);
+            });
+        })
     })
 })
 
