@@ -10,8 +10,8 @@
     경험치: <input type="text" id="exp"><br>
     공격력: <input type="text" id="attack"><br>
     골드: <input type="text" id="gold"><br>
-    <input type="button" id="hunt" value="사냥" onclick="hunt()">
-    <input type="button" id="item" value="아이템" onclick="item()">
+    <input type="button" id="hunt" value="사냥">
+    <input type="button" id="item" value="아이템">
 
     <script type="text/javascript">
         window.onload = () => {
@@ -25,8 +25,7 @@
                 document.getElementById("gold").value = result.gold;
             })
         }
-        
-        const hunt = () => {
+        document.getElementById("hunt").addEventListener('click', () => {
             fetch("hunt")
             .then((response) => response.json())
             .then((result) => {
@@ -44,9 +43,8 @@
                     })
                 }
             })
-        }
-        
-        const item = () => {
+        })
+        document.getElementById("item").addEventListener('click', () => {
             if (parseInt(document.getElementById("gold").value) >= 10) {
                 fetch("item")
                 .then((response) => response.json())
@@ -59,7 +57,7 @@
             else {
                 alert("골드가 부족합니다.")
             }
-        }
+        })
     </script>
 </body>
 </html>

@@ -87,6 +87,7 @@
             .then((response) => response.json())
             .then((result) => {
                 if (result.success) {
+                    localStorage.setItem("token", result.token);
                     location.href = '/';
                 }
             })

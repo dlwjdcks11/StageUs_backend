@@ -68,7 +68,22 @@ router.post('', (req, res) => {
     const koreaTime = new Date(currentTime.getTime() + (9 * 60 * 60 * 1000));
     const modifyResult = {
         "success": true,
+        "token": null,
     }
+    const jwtToken = jwt.sign({ // 토큰 재발급
+        id: user_id,
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
+        stuNum: req.body.stunum,
+        school: req.body.school
+    }, secretKey, {
+        expiresIn: "1m",
+        issuer: "stageus"
+    })
+    modifyResult.token = jwtToken;
+    
     const value = [req.body.name,
         req.body.email,
         req.body.phone,
