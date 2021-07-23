@@ -8,7 +8,7 @@ router.get('', (req, res) => {
             "exp", String(parseInt(value.exp) + 12),
             "gold", String(parseInt(value.gold) + 2)
         ], () => {
-            client.expire("character", 90, () => {
+            client.expire("character", 30, () => {
                 const result = { 
                     message: "경험치가 12, 골드가 2 증가했습니다.",
                     exp: parseInt(value.exp) + 12,

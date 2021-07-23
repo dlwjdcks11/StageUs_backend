@@ -8,7 +8,7 @@ router.get('', (req, res) => {
             "exp", String(parseInt(value.exp) - 100),
             "level", String(parseInt(value.level) + 1)
         ], () => {
-            client.expire("character", 90, () => {
+            client.expire("character", 30, () => {
                 const result = { 
                     message: "레벨업 했습니다.",
                     exp: parseInt(value.exp) - 100,

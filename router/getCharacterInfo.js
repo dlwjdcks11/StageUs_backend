@@ -41,7 +41,7 @@ router.get('', (req, res) => {
                     "attack", qResult.rows[0].attack,
                     "gold", qResult.rows[0].gold
                 ], () => {
-                    client.expire("character", 90, () => {
+                    client.expire("character", 30, () => {
                         const result = {
                             "nickname": qResult.rows[0].nickname,
                             "level": qResult.rows[0].level,
