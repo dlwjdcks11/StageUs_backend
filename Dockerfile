@@ -10,7 +10,7 @@ RUN	apt-get -y install npm
 RUN	apt-get -y install postgresql
 RUN	apt-get -y install postgresql-contrib
 RUN	apt-get -y install redis-server
-RUN	npm init
+RUN	npm init -y
 RUN	npm install
 RUN	npm install express
 RUN	npm install cors
@@ -24,23 +24,23 @@ RUN	npm install pg
 RUN	npm install -g pm2
 RUN	npm install redis
 
-COPY	game_index.html /game_index.html
-COPY	index.html /index.html
-COPY	modify.html /modify.html
-COPY	modifyPwd.html /modifyPwd.html
-COPY	private.pem /private.pem
-COPY	public.pem /public.pem
-COPY	register.html /register.html
-COPY	server.js /server.js
-COPY	week5_index.html /week5_index.html
+COPY	game_index.html /stageUs/game_index.html
+COPY	index.html /stageUs/index.html
+COPY	modify.html /stageUs/modify.html
+COPY	modifyPwd.html /stageUs/modifyPwd.html
+COPY	private.pem /stageUs/private.pem
+COPY	public.pem /stageUs/public.pem
+COPY	register.html /stageUs/register.html
+COPY	server.js /stageUs/server.js
+COPY	week5_index.html /stageUs/week5_index.html
 
-RUN	mkdir -p /router
-WORKDIR	/router
+RUN	mkdir -p /stageUs/router
+WORKDIR	/stageUs/router
 COPY	./router ./
 
-RUN	mkdir -p /schema
-WORKDIR	/schema
+RUN	mkdir -p /stageUs/router/schema
+WORKDIR	/stageUs/router/schema
 COPY	./router/schema/logSchema.js /schema.js
 
 WORKDIR	/stageUs
-CMD	node server.js
+CMD	node /stageUs/server.js
