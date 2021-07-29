@@ -85,9 +85,9 @@ app.use('/getCharacterInfo', getCharacterInfo)
 // app.use('/register', pageMove);
 app.use('/', main);
 
-app.listen(port, (req, res) => {
-    console.log(port + "포트로 서버 실행");
-});
+// app.listen(port, (req, res) => {
+//     console.log(port + "포트로 서버 실행");
+// });
 
 https.createServer(options, app).listen(httpsPort, (req, res) => {
     console.log("HTTPS 서버가 " + httpsPort + "포트로 서버 실행");
