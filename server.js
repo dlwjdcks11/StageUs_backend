@@ -9,7 +9,7 @@ const main = require('./router/main');
 // const moveToPwChange = require('./router/moveToPwChange');
 // const modify = require('./router/modify');
 // const modifyPw = require('./router/modifyPw');
-// const recordLog = require('./router/recordLog');
+const recordLog = require('./router/recordLog');
 // const token = require('./router/token');
 // const naverLogin = require('./router/naverLogin');
 const https = require('https');
@@ -74,7 +74,7 @@ const getCharacterInfo = require('./router/getCharacterInfo');
 app.use('/getCharacterInfo', getCharacterInfo)
 
 // app.use('/token', token);
-// app.use('/recordLog', recordLog);
+app.use('/recordLog', recordLog);
 // app.use('/modifyPw', modifyPw);
 // app.use('/pwChange', moveToPwChange);
 // app.use('/modifyInfo', modify);

@@ -25,23 +25,23 @@ RUN	    npm install pg
 RUN	    npm install -g pm2
 RUN	    npm install redis
 
-COPY	game_index.html /stageUs/game_index.html
-COPY	index.html /stageUs/index.html
-COPY	modify.html /stageUs/modify.html
-COPY	modifyPwd.html /stageUs/modifyPwd.html
-COPY	private.pem /stageUs/private.pem
-COPY	public.pem /stageUs/public.pem
-COPY	register.html /stageUs/register.html
-COPY	server.js /stageUs/server.js
-COPY	week5_index.html /stageUs/week5_index.html
+COPY	./game_index.html /stageUs/game_index.html
+COPY    ./index.html /stageUs/index.html
+COPY    ./modify.html /stageUs/modify.html
+COPY    ./modifyPwd.html /stageUs/modifyPwd.html
+COPY    ./private.pem /stageUs/private.pem
+COPY    ./public.pem /stageUs/public.pem
+COPY    ./register.html /stageUs/register.html
+COPY    ./server.js /stageUs/server.js
+COPY    ./week5_index.html /stageUs/week5_index.html
 
 RUN	    mkdir -p /stageUs/router
 WORKDIR	/stageUs/router
-COPY	./router ./
+COPY    ./router ./
 
 RUN	    mkdir -p /stageUs/router/schema
 WORKDIR	/stageUs/router/schema
-COPY	./router/schema/logSchema.js /stageUs/router/schema/schema.js
+COPY    ./router/schema ./
 
 WORKDIR	/stageUs
 VOLUME  /stageUs
