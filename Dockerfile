@@ -1,5 +1,4 @@
 FROM	ubuntu:20.04
-ARG 	DEBIAN_FRONTEND=noninteractive
 RUN	    mkdir -p /stageUs
 WORKDIR	/stageUs
 RUN	    apt-get -y update
