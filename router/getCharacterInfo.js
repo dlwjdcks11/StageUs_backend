@@ -10,7 +10,6 @@ router.get('', (req, res) => {
 
     client.hexists("character", "nickname", (err, value) => {
         if (value === 1) { // 이미 존재
-            console.log("이미 존재")
             client.hgetall("character", (err2, value2) => {
                 const result = {
                     "nickname": value2.nickname,
@@ -23,7 +22,6 @@ router.get('', (req, res) => {
             })
         }
         else { // 최초생성
-            console.log("최초생성")
             const dbClient = new Client({
                 user: 'stageus',
                 host: 'localhost',
