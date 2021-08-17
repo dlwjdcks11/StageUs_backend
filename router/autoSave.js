@@ -16,4 +16,4 @@ setInterval(() => {
         const values = [parseInt(value.level), parseInt(value.exp), parseInt(value.attack), parseInt(value.gold), value.nickname];
         dbClient.query(sql, values);
     })
-}, 30 * 1000)
+}, 30000)
